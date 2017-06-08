@@ -1,0 +1,48 @@
+---
+
+- name: Gather OS-specific vars
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
+    - "{{ ansible_distribution }}.yml"
+
+- name: Download tar.bz2
+  get_url:
+    url: "https://downloads.sourceforge.net/project/bio-bwa/bwa-{{ VERSION }}.tar.bz2?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fbio-bwa%2Ffiles%2F&ts=1496949828&use_mirror=gigenet"
+    dest: "/tmp/bwa.tar.bz2"
+
+- name: Untar.bz2 the package
+  unarchive:
+    src: "/tmp/bwa.tar.bz2"
+    dest: "/tmp"
+    remote_src: yes
+
+- name: Build executables from source
+  make:
+    chdir: "/tmp/bwa-{{ VERSION }}"
+
+- name: Move bwa executable file to path
+  copy:
+    remote_src: yes
+    src: "/tmp/bwa-{{ VERSION }}/bwa"
+    dest: "/usr/local/bin/bwa"
+    mode: 0755
+
+- name: Move bwakit executable files to path
+  copy:
+    remote_src: yes
+    src: "/tmp/bwa-{{ VERSION }}/bwakit/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: 0755
+  with_items:
+    - "run-bwamem"
+    - "run-gen-ref"
+    - "run-HLA"
+
+- name: Remove temporary files
+  file:
+    state: absent
+    path: "{{ item }}"
+  with_items:
+    - "/tmp/bwa.tar.bz2"
+    - "/tmp/bwa-{{ VERSION }}"
