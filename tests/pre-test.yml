@@ -1,9 +1,0 @@
----
-
-- name: Pre-install unzip
-  hosts: localhost
-  remote_user: root
-  tasks:
-    - package: name="unzip" state=present
-    - package: name="make" state=present
-    - package: name="gcc" state=present
