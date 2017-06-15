@@ -1,4 +1,5 @@
-----
+---
+
 - name: Pre-install unzip
   hosts: localhost
   remote_user: root
