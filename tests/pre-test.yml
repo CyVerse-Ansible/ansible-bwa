@@ -7,5 +7,7 @@
     - package: name="unzip" state=present
     - package: name="make" state=present
     - package: name="gcc" state=present
+    - package: name="bunzip2" state=present
+    - package: name="bzip2" state=present
     - package: name="build-essential" state=present
       when: ansible_distribution == "Ubuntu"
