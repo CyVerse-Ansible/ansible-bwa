@@ -1,8 +1,8 @@
-# bwa-ansible
+# ansible-bwa
 
 Installs [Burrows-Wheeler Aligner](http://bio-bwa.sourceforge.net/)
 
-[![Build Status](https://travis-ci.org/CyVerse-Ansible/bwa-ansible.svg?branch=master)](https://travis-ci.org/CyVerse-Ansible/bwa-ansible)
+[![Build Status](https://travis-ci.org/CyVerse-Ansible/ansible-bwa.svg?branch=master)](https://travis-ci.org/CyVerse-Ansible/ansible-bwa)
 
 ### Role Variables
 
